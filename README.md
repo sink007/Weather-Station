@@ -2,7 +2,7 @@
 # Internet of Things (IoT) Template - Hydroponics Monitoring System(Hydromonitor)
 
 ### Description
-The hardware is tasked with the remote control of the colour spectrum (frequency of light), quantity of activated LEDs, and the brightness of the lighting within the Hydroponics system. To monitor the farm environment, the hardware employs a DHT22 temperature and humidity sensor. Heat index must be calculated based on the sensor's data. The collected sensor data must be published to a topic subscribed to by both the backend and frontend segments of the system. Furthermore, the hardware is must process and execute actions in response to messages published to the topics to which it is subscribed. This comprehensive functionality ensures seamless control, monitoring, and responsiveness within the hydroponic cultivation environment.
+The hardware is tasked with the remote control of the colour spectrum (frequency of light), the number of activated LEDs, and the brightness of the lighting within the Hydroponics system. To monitor the farm environment, the hardware employs a DHT22 temperature and humidity sensor. The heat index must be calculated based on the sensor's data. The collected sensor data must be published to a topic subscribed to by both the backend and frontend segments of the system. Furthermore, the hardware is must process and execute actions in response to messages published to the topics to which it is subscribed. This comprehensive functionality ensures seamless control, monitoring, and responsiveness within the hydroponic cultivation environment.
 
 The backend is tasked with storing data, published by the hardware, in the database following the schema specified in the hardware specifications. Additionally, it is responsible for making the stored data in the database accessible to the frontend through API routes.
 
@@ -11,10 +11,9 @@ The frontend plays a pivotal role in delivering three distinct user interfaces. 
 
 
 # Hardware Setup
-Download and install [Arduino](https://www.arduino.cc/en/software) IDE. Subsequently, install the following Arduino IDE libraries following the tutorial [here](https://support.arduino.cc/hc/en-us/articles/5145457742236-Add-libraries-to-Arduino-IDE):
-1. Adafruit GFX Library by Adafruit
-2. Adafruit ILI9341 by Adafruit
-3. ArduinoJson by Benoît Blanchon
+Download and install [Arduino](https://www.arduino.cc/en/software) IDE if you haven't already done so. Subsequently, install the following Arduino IDE libraries if they are not currently installed, following the tutorial [here](https://support.arduino.cc/hc/en-us/articles/5145457742236-Add-libraries-to-Arduino-IDE):
+1. FastLED by Daniel Garcia
+3. ArduinoJson by Benoît Blanchon 
 4. PubSubClient by Nick O’Leary
 
 
@@ -69,7 +68,7 @@ Customize configuration
 See [Vite Configuration Reference](https://vitejs.dev/config/).
 
 
-### In a command line terminal, execute the first commands in the RNG/frontend/ folder to initiate the dev server for the initial setup. 
+### In a command line terminal, execute the first commands in the hydromonitor/frontend/ folder to initiate the dev server for the initial setup. 
 ### For all subsequent instances, only run the second command to start the dev server.
 ### Once development is complete, run the final command to generate production files. Please be aware that the generation of production files is not part of this course.
 
