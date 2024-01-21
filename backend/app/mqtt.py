@@ -38,7 +38,7 @@ class MQTT:
 
          
 
-        # CONNECT TO SERVER
+        # ADD MQTT SERVER AND PORT INFORMATION BELOW
         self.client.connect_async("localhost", 1883, 60)
        
 

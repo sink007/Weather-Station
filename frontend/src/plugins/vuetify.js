@@ -30,9 +30,9 @@ const lightMode = {
     errorContainer : "#FFDAD6",
     onError : "#FFFFFF",
     onErrorContainer : "#410002",
-    background : "#FEFBFF", 
+    background : "#FFFFFF", // #FEFBFF
     onBackground : "#1B1B1F",
-    surface : "#FFFBFE", // #F0F0F0
+    surface : "#F5F5F5", // #F0F0F0  , #FFFBFE
     onSurface : "#1B1B1F",
     surfaceVariant : "#E1E2EC",
     onSurfaceVariant : "#44474F",
