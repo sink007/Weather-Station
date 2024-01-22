@@ -244,6 +244,7 @@ double convert_fahrenheit_to_Celsius(double f){
 
 double calcHeatIndex(double Temp, double Humid){
     // CALCULATE AND RETURN HEAT INDEX USING EQUATION FOUND AT
+    // https://byjus.com/heat-index-formula/#:~:text=The%20heat%20index%20formula%20is,an%20implied%20humidity%20of%2020%25
     // https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml 
 }
  
