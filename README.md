@@ -15,6 +15,7 @@ Download and install [Arduino](https://www.arduino.cc/en/software) IDE if you ha
 1. FastLED by Daniel Garcia
 3. ArduinoJson by Benoît Blanchon 
 4. PubSubClient by Nick O’Leary
+5. DHT sensor library by Adafruit
 
 
 
