@@ -48,7 +48,7 @@ class DB:
 
 
     ####################
-    # LAB 2 FUNCTIONS  #
+    # LAB 2 DATABASE UTIL FUNCTIONS  #
     ####################
     
     def addUpdate(self,data):

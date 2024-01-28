@@ -36,7 +36,8 @@
 
 // DEFINE VARIABLES
 #define ARDUINOJSON_USE_DOUBLE      1 
-// DEFINE THE CONTROL PINS FOR BOTH LEDs and A POTENTIOMETER
+
+// DEFINE THE CONTROL PINS FOR THE DHT22 
 
 
 
@@ -98,7 +99,10 @@ double calcHeatIndex(double Temp, double Humid);
 void setup() {
   Serial.begin(115200);  // INIT SERIAL  
 
-  // CONFIGURE THE ARDUINO FOR ALL SENSORS AND DEVICES
+  // INITIALIZE ALL SENSORS AND DEVICES
+  
+  /* Add all other necessary sensor Initializations and Configurations here */
+
 
   initialize();     // INIT WIFI, MQTT & NTP 
   // vButtonCheckFunction(); // UNCOMMENT IF USING BUTTONS INT THIS LAB, THEN ADD LOGIC FOR INTERFACING WITH BUTTONS IN THE vButtonCheck FUNCTION
@@ -137,10 +141,10 @@ void vUpdate( void * pvParameters )  {
           // ## This function must PUBLISH to topic every second. ##
           // #######################################################
    
-          // 1. Read Humidity (the default) and save in variable below
+          // 1. Read Humidity and save in variable below
           double h = 0;
            
-          // 2. Read temperature as Celsius (the default) and save in variable below
+          // 2. Read temperature as Celsius   and save in variable below
           double t = 0;    
  
 
@@ -149,7 +153,7 @@ void vUpdate( void * pvParameters )  {
 
               // 1. Create JSon object
               
-              // 2. Create message array
+              // 2. Create message buffer/array to store serialized JSON object
               
               // 3. Add key:value pairs to JSon object based on above schema
 
@@ -243,9 +247,8 @@ double convert_fahrenheit_to_Celsius(double f){
 }
 
 double calcHeatIndex(double Temp, double Humid){
-    // CALCULATE AND RETURN HEAT INDEX USING EQUATION FOUND AT
-    // https://byjus.com/heat-index-formula/#:~:text=The%20heat%20index%20formula%20is,an%20implied%20humidity%20of%2020%25
-    // https://www.wpc.ncep.noaa.gov/html/heatindex_equation.shtml 
+    // CALCULATE AND RETURN HEAT INDEX USING EQUATION FOUND AT https://byjus.com/heat-index-formula/#:~:text=The%20heat%20index%20formula%20is,an%20implied%20humidity%20of%2020%25
+  
 }
  
 
