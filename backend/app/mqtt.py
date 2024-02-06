@@ -32,11 +32,14 @@ class MQTT:
         self.client.on_disconnect   = self.on_disconnect
         self.client.on_subscribe    = self.on_subscribe
 
+        # 2. DEFINE CALLBACK FUNCTIONS(S) BELOW FOR EACH TOPIC(S) THE BACKEND SUBSCRIBES TO
+        self.client.message_callback_add("620155784", self.update)
+        self.client.message_callback_add("620155784_sub", self.update)
+        self.client.message_callback_add("620155784_pub", self.update)
 
         # 3. REGISTER CALLBACK FUNCTION(S) FOR EACH TOPIC USING THE self.client.message_callback_add("topic",self.function) FUNCTION
         # WHICH TAKES A TOPIC AND THE NAME OF THE CALLBACK FUNCTION YOU HAVE CREATED FOR THIS SPECIFIC TOPIC
 
-         
 
         # 4. UPDATE MQTT SERVER AND PORT INFORMATION BELOW
         self.client.connect_async("www.yanacreations.com", 1883, 60)
@@ -79,10 +82,18 @@ class MQTT:
     def on_disconnect(self, client, userdata, rc):
         if rc != 0:
             print("MQTT: Unexpected Disconnection.")
-   
 
-    # 2. DEFINE CALLBACK FUNCTIONS(S) BELOW FOR EACH TOPIC(S) THE BACKEND SUBSCRIBES TO 
-     
+    def update(self, client, userdata, msg):
+        try:
+            topic = msg.topic
+            payload = msg.payload.decode("utf-8")
+            print(payload)  # UNCOMMENT WHEN DEBUGGING
+
+            climo = loads(payload)  # CONVERT FROM JSON STRING TO JSON OBJECT
+            self.mongo.addUpdate(climo)  # INSERT INTO DATABASE
+
+        except Exception as e:
+            print(f"MQTT: Error: {str(e)}")
 
 
      
