@@ -54,8 +54,8 @@ static const char* mqtt_server   = "www.yanacreations.com";         // Broker IP
 static uint16_t mqtt_port        = 1883;
 
 // WIFI CREDENTIALS
-const char* ssid       = "Home";     // Add your Wi-Fi ssid
-const char* password   = "family123"; // Add your Wi-Fi password 
+const char* ssid       = "MonaConnect";     // Add your Wi-Fi ssid
+const char* password   = ""; // Add your Wi-Fi password 
 
 
 
@@ -102,21 +102,22 @@ DHT dht(DHT_pin, DHTTYPE);
 float hum;  //Stores humidity value
 float celsius; //Stores temperature value cel
 float far;  // fahrenheit
-float c1 = -42.379;
-float c2= -2.04901523;
-float c3 = -10.14333127;
-float c4 = -0.22475541;
-float c5 = -6.83783 * pow(10,-3);
-float c6 = -5.481717 * pow(10,-2);
-float c7 = -1.22874 * pow(10,-3);
-float c8 = 8.5282 * pow(10,-4);
-float c9 = -1.99 * pow(10,-6);
+const double c1 = -42.379;
+const double c2 = 2.04901523;
+const double c3 = 10.14333127;
+const double c4 = -0.22475541;
+const double c5 = -6.83783e-03;
+const double c6 = -5.481717e-02;
+const double c7 = 1.22874e-03;
+const double c8 = 8.5282e-04;
+const double c9 = -1.99e-06;
 CRGB leds[NUM_LEDS];
-
+  
 void setup() {
   Serial.begin(115200);  // INIT SERIAL  
 
   // INITIALIZE ALL SENSORS AND DEVICES
+  
   dht.begin();
   /* Add all other necessary sensor Initializations and Configurations here */
   FastLED.addLeds<NEOPIXEL, LED_pin>(leds, NUM_LEDS);
@@ -128,6 +129,7 @@ void setup() {
 
 void loop() {
     // put your main code here, to run repeatedly:    
+   
     vTaskDelay(1000 / portTICK_PERIOD_MS);    
 }
 
@@ -162,8 +164,7 @@ void vUpdate( void * pvParameters )  {
           // 2. Read temperature as Celsius   and save in variable below
           double t = 0;    
           t= dht.readTemperature();
-  
-
+       
           if(isNumber(t)){
               // ##Publish update according to ‘{"id": "student_id", "timestamp": 1702212234, "temperature": 30, "humidity":90, "heatindex": 30}’
 
@@ -178,7 +179,7 @@ void vUpdate( void * pvParameters )  {
               doc["timestamp"]  = getTimeStamp();
               doc["temperature"]= t;
               doc["humidity"]= h;
-              doc["heatindex"]= calcHeatIndex(t,h);
+              doc["heatindex"]= calcHeatIndex(t,h); 
               // 4. Seralize / Covert JSon object to JSon string and store in message array
               serializeJson(doc, message);
               // 5. Publish message to a topic sobscribed to by both backend and frontend                
@@ -288,8 +289,9 @@ double convert_fahrenheit_to_Celsius(double f){
 
 double calcHeatIndex(double T, double H){
     // CALCULATE AND RETURN HEAT INDEX USING EQUATION FOUND AT https://byjus.com/heat-index-formula/#:~:text=The%20heat%20index%20formula%20is,an%20implied%20humidity%20of%2020%25
-  //return  c1 + (c2 * T) + (c3 * H) + (c4 * T * H) + (c5 * T * T) + (c6 * H * H) + (c7 * T * T * H) + (c8 * T * H * H) + (c9 * T * T * H * H);
-  return dht.computeHeatIndex(T, H, false);
+  
+  return  c1 + (c2 * T) + (c3 * H) + (c4 * T * H) + (c5 * T * T) + (c6 * H * H) + (c7 * T * T * H) + (c8 * T * H * H) + (c9 * T * T * H * H);
+  //return dht.computeHeatIndex(T, H, false);
 }
  
 
