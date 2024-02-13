@@ -164,6 +164,8 @@ void vUpdate( void * pvParameters )  {
           // 2. Read temperature as Celsius   and save in variable below
           double t = 0;    
           t= dht.readTemperature();
+
+          double f=convert_Celsius_to_fahrenheit(t);
        
           if(isNumber(t)){
               // ##Publish update according to ‘{"id": "student_id", "timestamp": 1702212234, "temperature": 30, "humidity":90, "heatindex": 30}’
@@ -179,7 +181,7 @@ void vUpdate( void * pvParameters )  {
               doc["timestamp"]  = getTimeStamp();
               doc["temperature"]= t;
               doc["humidity"]= h;
-              doc["heatindex"]= calcHeatIndex(t,h); 
+              doc["heatindex"]= convert_fahrenheit_to_Celsius(calcHeatIndex(f,h)); 
               // 4. Seralize / Covert JSon object to JSon string and store in message array
               serializeJson(doc, message);
               // 5. Publish message to a topic sobscribed to by both backend and frontend                
@@ -279,12 +281,12 @@ bool publish(const char *topic, const char *payload){
 
 double convert_Celsius_to_fahrenheit(double c){    
     // CONVERTS INPUT FROM °C TO °F. RETURN RESULTS   
-    return c * (9/5) + 32;
+    return ((c * 9 / 5) + 32);
 }
 
 double convert_fahrenheit_to_Celsius(double f){    
     // CONVERTS INPUT FROM °F TO °C. RETURN RESULT    
-    return (f-32) * (5/9);
+    return ((f-32) * 5/ 9);
 }
 
 double calcHeatIndex(double T, double H){
