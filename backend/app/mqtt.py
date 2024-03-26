@@ -42,7 +42,7 @@ class MQTT:
 
 
         # 4. UPDATE MQTT SERVER AND PORT INFORMATION BELOW
-        self.client.connect_async("www.yanacreations.com", 1883, 60)
+        self.client.connect_async("broker.hivemq.com", 1883, 60)
        
 
 
@@ -89,8 +89,8 @@ class MQTT:
             payload = msg.payload.decode("utf-8")
             print(payload)  # UNCOMMENT WHEN DEBUGGING
 
-            climo = loads(payload)  # CONVERT FROM JSON STRING TO JSON OBJECT
-            self.mongo.addUpdate(climo)  # INSERT INTO DATABASE
+            project = loads(payload)  # CONVERT FROM JSON STRING TO JSON OBJECT
+            self.mongo.addUpdate(project)  # INSERT INTO DATABASE
 
         except Exception as e:
             print(f"MQTT: Error: {str(e)}")

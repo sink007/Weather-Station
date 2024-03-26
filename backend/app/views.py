@@ -25,7 +25,7 @@ from math import floor
 #   Routing for your application    #
 #####################################
 
-@app.route('/api/climo/get/<start>/<end>', methods=['GET']) 
+@app.route('/api/project/get/<start>/<end>', methods=['GET']) 
 def get_all(start,end):   
     '''RETURNS ALL THE DATA FROM THE DATABASE THAT EXIST IN BETWEEN THE START AND END TIMESTAMPS'''
     if request.method == "GET":
@@ -87,6 +87,56 @@ def get_humidity_mmar(start,end):
     # FILE DATA NOT EXIST
     return jsonify({"status":"not found","data":[]})
 
+
+@app.route('/api/mmar/pressure/<start>/<end>', methods=['GET']) 
+def get_pressure_mmar(start, end):   
+    '''RETURNS MIN, MAX, AVG AND RANGE FOR PRESSURE. THAT FALLS WITHIN THE START AND END DATE RANGE'''
+    if request.method == "GET": 
+        try:
+            start = int(start)
+            end = int(end)
+            pressure = mongo.pressureMMAR(start, end)
+            if pressure:
+                return jsonify({"status": "found", "data": pressure})
+        except Exception as e:
+            print(f"get_pressure error: {str(e)}")
+
+    # DATA NOT FOUND
+    return jsonify({"status": "not found", "data": []})
+
+
+@app.route('/api/mmar/altitude/<start>/<end>', methods=['GET']) 
+def get_altitude_mmar(start, end):   
+    '''RETURNS MIN, MAX, AVG AND RANGE FOR ALTITUDE. THAT FALLS WITHIN THE START AND END DATE RANGE'''
+    if request.method == "GET": 
+        try:
+            start = int(start)
+            end = int(end)
+            altitude = mongo.altitudeMMAR(start, end)
+            if altitude:
+                return jsonify({"status": "found", "data": altitude})
+        except Exception as e:
+            print(f"get_altitude error: {str(e)}")
+
+    # DATA NOT FOUND
+    return jsonify({"status": "not found", "data": []})
+
+
+@app.route('/api/mmar/soilMoisture/<start>/<end>', methods=['GET']) 
+def get_soilMoisture_mmar(start, end):   
+    '''RETURNS MIN, MAX, AVG AND RANGE FOR SOIL MOISTURE. THAT FALLS WITHIN THE START AND END DATE RANGE'''
+    if request.method == "GET": 
+        try:
+            start = int(start)
+            end = int(end)
+            soil_moisture = mongo.soilMoistureMMAR(start, end)
+            if soil_moisture:
+                return jsonify({"status": "found", "data": soil_moisture})
+        except Exception as e:
+            print(f"get_soilMoisture error: {str(e)}")
+
+    # DATA NOT FOUND
+    return jsonify({"status": "not found", "data": []})
 
 
 
