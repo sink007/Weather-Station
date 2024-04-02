@@ -1,7 +1,7 @@
 <template>
     <v-container class="container" fluid background-color="surface">
         <v-row class="row row1 pa-4" max-width="1200px">
-            <v-col class="col col1" align="center"> 
+            <v-col class="col col1" cols="2" align="center"> 
                 <v-sheet class="pa-4 custom-sheet" height="250">
                     <v-divider></v-divider>
                     <v-text-field v-model="start" label="Start date" type="date" dense solo-inverted class="mr-5 custom-text-field" 
@@ -13,11 +13,11 @@
                         flat >
                     </v-text-field>
                     <v-spacer></v-spacer>
-                    <VBtn @click="updateLineCharts(); updateScatterCharts(); updateCards(); updateHistogramCharts(); " text="Analyze" color="primary" variant="elevated" class="custom-btn">
+                    <VBtn @click="startAnalysis" text="Analyze" color="primary" variant="elevated" class="custom-btn">
                     </VBtn>
                 </v-sheet>
             </v-col>
-            <v-col class="col col2" align="center"> 
+            <v-col class="col col2" cols="2" align="center"> 
                 <v-card title="Temperature" variant="outlined" color="primary" width="300" density="compact" rounded="lg" class="custom-card">
                     <v-card-item class="mb-n5">
                         <v-chip-group class="d-flex flex-row justify-center" color="primaryContainer" variant="elevated">
@@ -49,7 +49,7 @@
 
                 </v-card>
             </v-col>
-            <v-col class="col col3" align="center">
+            <v-col class="col col3" cols="2" align="center">
                 <v-card title="Humidity" variant="outlined" color="primary" width="300" density="compact" rounded="lg" class="custom-card">
                     <v-card-item class="mb-n5">
                         <v-chip-group class="d-flex flex-row justify-center" color="primaryContainer" variant="elevated">
@@ -80,7 +80,7 @@
                     </v-card-item>
                 </v-card>
             </v-col>
-            <v-col class="col col4" align="center">
+            <v-col class="col col4" cols="2" align="center">
                 <v-card title="Pressure" variant="outlined" color="primary" width="300" density="compact" rounded="lg" class="custom-card">
                     <v-card-item class="mb-n5">
                         <v-chip-group class="d-flex flex-row justify-center" color="primaryContainer" variant="elevated">
@@ -111,7 +111,7 @@
                     </v-card-item>
                 </v-card>
             </v-col>
-            <v-col class="col col5" align="center">
+            <v-col class="col col5" cols="2" align="center">
                 <v-card title="Altitude" variant="outlined" color="primary" width="300" density="compact" rounded="lg" class="custom-card">
                     <v-card-item class="mb-n5">
                         <v-chip-group class="d-flex flex-row justify-center" color="primaryContainer" variant="elevated">
@@ -139,6 +139,37 @@
                     </v-card-item>
                     <v-card-item align="center">
                         <span class="text-h1 text-primary font-weight-bold custom-card-text" > {{ altitude.avg }}</span>
+                    </v-card-item>
+                </v-card>
+            </v-col>
+            <v-col class="col col6" cols="2" align="center">
+                <v-card title="Soil Moisture" variant="outlined" color="primary" width="300" density="compact" rounded="lg" class="custom-card">
+                    <v-card-item class="mb-n5">
+                        <v-chip-group class="d-flex flex-row justify-center" color="primaryContainer" variant="elevated">
+                            
+                            <v-tooltip text="Min" location="start">
+                                <template v-slot:activator="{props}">
+                                    <v-chip v-bind="props" class="custom-chip"> {{ soilM.min }}</v-chip>
+                                </template>
+                            </v-tooltip> 
+
+                            <v-tooltip text="Range" location="top">
+                                <template v-slot:activator="{props}">
+                                    <v-chip v-bind="props" class="custom-chip"> {{ soilM.range }}</v-chip>
+                                </template>
+                            </v-tooltip>
+
+                            <v-tooltip text="Max" location="end">
+                                <template v-slot:activator="{props}">
+                                    <v-chip v-bind="props" class="custom-chip"> {{ soilM.max }}</v-chip>
+                                </template>
+                            </v-tooltip>
+
+                        </v-chip-group>
+
+                    </v-card-item>
+                    <v-card-item align="center">
+                        <span class="text-h1 text-primary font-weight-bold custom-card-text" > {{ soilM.avg }}</span>
                     </v-card-item>
                 </v-card>
             </v-col>
@@ -253,6 +284,8 @@ onMounted(()=>{
         Mqtt.subscribe("620155784_pub");
         },
     3000);
+
+    startAnalysis();
 });
 
 
@@ -261,6 +294,20 @@ onBeforeUnmount(()=>{
     Mqtt.unsubcribeAll();
 });
 
+const startAnalysis = () => {
+      updateLineCharts();
+      updateScatterCharts();
+      updateCards();
+      updateHistogramCharts();
+      
+      // Start auto-refresh every 15 seconds
+      setInterval(() => {
+        updateLineCharts();
+        updateScatterCharts();
+        updateCards();
+        updateHistogramCharts();
+      }, 15000);
+};
 const CreateCharts = async () => {
 // TEMPERATURE CHART
     tempHiChart.value = Highcharts.chart("container", {
@@ -310,6 +357,7 @@ const CreateCharts = async () => {
     humHiChart.value = Highcharts.chart("container0", {
         chart: { zoomType: "x" },
         title: { text: "Humidity Analysis", align: "left" },
+        subtitle:{text:'Visualize the humidity readings across the specified time period'},
         yAxis: {
             title: {
                 text: "Humidity",
@@ -341,6 +389,7 @@ const CreateCharts = async () => {
     pressChart.value = Highcharts.chart("container1", {
         chart: { zoomType: "x" },
         title: { text: "Pressure Analysis", align: "left" },
+        subtitle:{text:'Visualize the pressure readings across the specified time period'},
         yAxis: {
             title: {
                 text: "Pressure",
@@ -371,6 +420,7 @@ const CreateCharts = async () => {
     altChart.value = Highcharts.chart("container2", {
         chart: { zoomType: "x" },
         title: { text: "Altitude Analysis", align: "left" },
+        subtitle:{text:'Visualize the altitude readings across the specified time period'},
         yAxis: {
             title: {
                 text: "Altitude",
@@ -401,6 +451,7 @@ const CreateCharts = async () => {
     soilChart.value = Highcharts.chart("container3", {
         chart: { zoomType: "x" },
         title: { text: "Soil Moisture Analysis", align: "left" },
+        subtitle:{text:'Visualize the soil moisture readings across the specified time period'},
         yAxis: {
             title: {
                 text: "Soil Moisture",
@@ -606,7 +657,7 @@ const CreateCharts = async () => {
                 type: 'scatter',
                 data: [],
                 turboThreshold: 0,
-                color: Highcharts.getOptions().colors[11]
+                color: Highcharts.getOptions().colors[0]
             },
             {
                 name: 'HeatIndex',
@@ -622,6 +673,12 @@ const CreateCharts = async () => {
 
 const updateLineCharts = async ()=>{
     if(!!start.value && !!end.value){
+        tempHiChart.value.series[0].setData([],true);
+        tempHiChart.value.series[1].setData([],true);
+        pressChart.value.series[0].setData([],true);
+        altChart.value.series[0].setData([],true);
+        humHiChart.value.series[0].setData([],true);
+        soilChart.value.series[0].setData([],true);
         // Convert output from Textfield components to 10 digit timestamps
         let startDate = new Date(start.value).getTime() / 1000;
         let endDate = new Date(end.value).getTime() / 1000;
@@ -679,7 +736,6 @@ const updateCards = async () => {
         temperature.min = temp[0].min.toFixed(1);
         temperature.avg = temp[0].avg.toFixed(1);
         temperature.range = temp[0].range.toFixed(1);
-        //4. complete max, min, avg and range for the humidity variable
         humidity.max = humid[0].max.toFixed(1);
         humidity.min = humid[0].min.toFixed(1);
         humidity.avg = humid[0].avg.toFixed(1);
@@ -702,6 +758,9 @@ const updateCards = async () => {
 
 const updateScatterCharts = async () => {
   if (!!start.value && !!end.value) {
+    scatterTH.value.series[0].setData([],true);
+    scatterHH.value.series[0].setData([],true);
+    pressalt.value.series[0].setData([],true);
     // Convert output from Textfield components to 10 digit timestamps
     let startDate = new Date(start.value).getTime() / 1000;
     let endDate = new Date(end.value).getTime() / 1000;
@@ -744,6 +803,14 @@ const updateScatterCharts = async () => {
 const updateHistogramCharts = async () =>{
     // Retrieve Min, Max, Avg, Spread/Range for Column graph
     if(!!start.value && !!end.value){
+        freq.value.series[0].setData([],true);
+        // 8. update series[1] for the histogram/Column chart with humidity data
+        freq.value.series[1].setData([],true);
+        // 9. update series[2] for the histogram/Column chart with heat index data
+        freq.value.series[2].setData([],true);
+        freq.value.series[3].setData([],true);
+        freq.value.series[4].setData([],true);
+        freq.value.series[5].setData([],true);
         // 1. Convert start and end dates collected fron TextFields to 10 digit timestamps
         // Subsequently, create startDate and endDate variables and then save the respective timestamps in these variables
         let startDate = new Date(start.value).getTime() / 1000;
@@ -772,13 +839,10 @@ const updateHistogramCharts = async () =>{
             temperature.push({"x": row["_id"],"y": row["count"]})
         });
 
-        // 5. Iterate through the humid variable, which contains humidity data fetched from the backend
-        // transform the data to {"x": x_value,"y": y_value} format and then push it to the humidity array created previously
         humid.forEach(row => {
             humidity.push({"x": row["_id"],"y": row["count"]})
         });
-        // 6. Iterate through the humid variable, which contains heat index data fetched from the backend
-        // transform the data to {"x": x_value,"y": y_value} format and then push it to the heatindex array created previously
+    
         hi.forEach(row => {
             heatIndex.push({"x": row["_id"],"y": row["count"]})
         });
@@ -796,7 +860,7 @@ const updateHistogramCharts = async () =>{
         });
         // 7. update series[0] for the histogram/Column chart with temperature data
         // see example below
-        console.log(temperature);
+        console.log(altitude);
         freq.value.series[0].setData(temperature);
         // 8. update series[1] for the histogram/Column chart with humidity data
         freq.value.series[1].setData(humidity);

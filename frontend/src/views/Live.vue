@@ -1,116 +1,106 @@
 <template>
-   <v-container class="container" fluid align="center" background-color="surface">
-    <v-row class="row row1" max-width="1200px">
-        <v-col class="col col1" cols="8" align="center">
-            <figure class="highcharts-figure">
-                <div id="container">
-                </div>
-            </figure>
-        </v-col>
-        <v-col class="col col2" cols="4" align="center"> 
-            <VCard margin-bottom="5px" max-width="500px" color="primaryContainer" subtitle="Temperature">
-                <v-card-item>
-                    <span class="text-p3 text-onPrimaryContainer"  style="font-size: 35px;">{{ temperature }}</span>
-                </v-card-item>
-                <v-card-item>
-                    <v-btn @click="toggleTemperatureUnit">{{ tempUnit}}</v-btn>
-                </v-card-item>
-            </VCard>  
-        </v-col>
-      </v-row>
-      <v-row class="row row2" max-width="1200px">
-        <v-col class="col col1" cols="8" align="center">
-            <figure class="highcharts-figure">
-                <div id="container1">
-                </div>
-            </figure>
-        </v-col>
-        <v-col class="col col2" cols="4" align="center"> 
-            <VCard margin-bottom="5px" max-width="500px" color="tertiaryContainer" subtitle="HeatIndex (Feels Like)">
-                <v-card-item>
-                    <span class="text-p3 text-onTertiaryContainer"  style="font-size: 35px;">{{ heatindex }}</span>
-                </v-card-item>
-                <v-card-item>
-                    <v-btn @click="toggleHeatIndexUnit">{{ heatIndexUnit }}</v-btn>
-                </v-card-item>
-            </VCard> 
-        </v-col>
-      </v-row>
-      <v-row class="row row3" max-width="1200px" justify="start">
-        <v-col class="col col1" cols="8" align="center"> 
-            <figure class="highcharts-figure">
-                <div id="container2">
-                </div>
-            </figure>
-        </v-col>
-        <v-col class="col col2" cols="4" align="center"> 
-            <VCard margin-bottom="5px" max-width="500px" color="secondaryContainer" subtitle="Humidity">
-                <v-card-item>
-                    <span class="text-p3 text-onSecondaryContainer"  style="font-size: 35px;">{{ humidity }}</span>
-                </v-card-item>
-                <v-card-item>
-                </v-card-item>
-            </VCard> 
-        </v-col>
-
-      </v-row>
-      <v-row class="row row4" max-width="1200px" justify="start">
-            <v-col class="col col1" cols="8" align="center"> 
-                <figure class="highcharts-figure">
-                    <div id="container3">
-                    </div>
-                </figure>
-            </v-col>
-            <v-col class="col col2" cols="4" align="center"> 
-                <VCard margin-bottom="5px" max-width="500px" color="red" subtitle="Pressure">
-                        <v-card-item>
-                            <span class="text-p3 text-onSecondaryContainer" style="font-size: 35px;">{{ pressure }}</span>
-                        </v-card-item>
-                        <v-card-item>    
-                            <v-btn @click="togglePressureUnit">{{ pressureUnit}}</v-btn>
-                        </v-card-item>
-                </VCard> 
-            </v-col>
-      </v-row>
-      <v-row class="row row5" max-width="1200px" justify="start">
-            <v-col class="col col1" cols="8" align="center"> 
-                <figure class="highcharts-figure">
-                    <div id="container4">
-                    </div>
-                </figure>
-            </v-col>
-            <v-col class="col col2" cols="4" align="center"> 
-                <VCard margin-bottom="5px" max-width="500px" color="blue" subtitle="Altitude">
-                        <v-card-item>
-                            <span class="text-p3 text-onSecondaryContainer"  style="font-size: 35px;">{{ altitude }}</span>
-                        </v-card-item>
-                        <v-card-item>
-                            <v-btn @click="toggleAltitudeUnit">{{ altitudeUnit}}</v-btn>
-                        </v-card-item>
-                </VCard> 
-            </v-col>
-      </v-row>
-
-     <v-row class="row row6" max-width="1200px" justify="start">
-        <v-col class="col col1" cols="8" align="center"> 
-            <figure class="highcharts-figure">
-                <div id="container5">
-                </div>
-            </figure>
-        </v-col>
-        <v-col class="col col2" cols="4" align="center"> 
-            <VCard margin-bottom="5px" max-width="500px" color="green" subtitle="Soil Moisture">
-                <v-card-item>
-                    <span class="text-p3 text-onSecondaryContainer" style="font-size: 35px;">{{ soil }}</span>
-                </v-card-item>
-                <v-card-item></v-card-item>
-            </VCard> 
-        </v-col>
-      </v-row>
-    
-
-   </v-container>
-</template>
+    <v-container class="container" fluid align="center" background-color="surface">
+     <v-row class="row row1" max-width="1200px" justify="center" align="center">
+         <v-col class="col col1" cols="8" align="center">
+             <figure class="highcharts-figure custom-chart">
+                 <div id="container" class="custom-chart"></div>
+             </figure>
+         </v-col>
+         <v-col class="col col2" cols="4" align="center"> 
+             <VCard class="custom-card" margin-bottom="5px" max-width="500px" color="primaryContainer" subtitle="Temperature">
+                 <v-card-item class="custom-card-text">
+                     <span class="text-p3 text-onPrimaryContainer"  style="font-size: 35px;">{{ temperature }}</span>
+                 </v-card-item>
+                 <v-card-item>
+                     <v-btn @click="toggleTemperatureUnit" class="custom-btn">{{ tempUnit}}</v-btn>
+                 </v-card-item>
+             </VCard>  
+         </v-col>
+       </v-row>
+       <v-row class="row row2" max-width="1200px" justify="center" align="center">
+         <v-col class="col col1" cols="8" align="center">
+             <figure class="highcharts-figure custom-chart">
+                 <div id="container1" class="custom-chart"></div>
+             </figure>
+         </v-col>
+         <v-col class="col col2" cols="4" align="center"> 
+             <VCard class="custom-card" margin-bottom="5px" max-width="500px" color="tertiaryContainer" subtitle="HeatIndex (Feels Like)">
+                 <v-card-item class="custom-card-text">
+                     <span class="text-p3 text-onTertiaryContainer"  style="font-size: 35px;">{{ heatindex }}</span>
+                 </v-card-item>
+                 <v-card-item>
+                     <v-btn @click="toggleHeatIndexUnit" class="custom-btn">{{ heatIndexUnit }}</v-btn>
+                 </v-card-item>
+             </VCard> 
+         </v-col>
+       </v-row>
+       <v-row class="row row3" max-width="1200px" justify="center" align="center">
+         <v-col class="col col1" cols="8" align="center"> 
+             <figure class="highcharts-figure custom-chart">
+                 <div id="container2" class="custom-chart"></div>
+             </figure>
+         </v-col>
+         <v-col class="col col2" cols="4" align="center"> 
+             <VCard class="custom-card" margin-bottom="5px" max-width="500px" color="secondaryContainer" subtitle="Humidity">
+                 <v-card-item class="custom-card-text">
+                     <span class="text-p3 text-onSecondaryContainer"  style="font-size: 35px;">{{ humidity }}</span>
+                 </v-card-item>
+                 <v-card-item></v-card-item>
+             </VCard> 
+         </v-col>
+       </v-row>
+       <v-row class="row row4" max-width="1200px" justify="center" align="center">
+             <v-col class="col col1" cols="8" align="center"> 
+                 <figure class="highcharts-figure custom-chart">
+                     <div id="container3" class="custom-chart"></div>
+                 </figure>
+             </v-col>
+             <v-col class="col col2" cols="4" align="center"> 
+                 <VCard class="custom-card" margin-bottom="5px" max-width="500px" color="red" subtitle="Pressure">
+                         <v-card-item class="custom-card-text">
+                             <span class="text-p3 text-onSecondaryContainer" style="font-size: 35px;">{{ pressure }}</span>
+                         </v-card-item>
+                         <v-card-item>    
+                             <v-btn @click="togglePressureUnit" class="custom-btn">{{ pressureUnit}}</v-btn>
+                         </v-card-item>
+                 </VCard> 
+             </v-col>
+       </v-row>
+       <v-row class="row row5" max-width="1200px" justify="center" align="center">
+             <v-col class="col col1" cols="8" align="center"> 
+                 <figure class="highcharts-figure custom-chart">
+                     <div id="container4" class="custom-chart"></div>
+                 </figure>
+             </v-col>
+             <v-col class="col col2" cols="4" align="center"> 
+                 <VCard class="custom-card" margin-bottom="5px" max-width="500px" color="blue" subtitle="Altitude">
+                         <v-card-item class="custom-card-text">
+                             <span class="text-p3 text-onSecondaryContainer"  style="font-size: 35px;">{{ altitude }}</span>
+                         </v-card-item>
+                         <v-card-item>
+                             <v-btn @click="toggleAltitudeUnit" class="custom-btn">{{ altitudeUnit}}</v-btn>
+                         </v-card-item>
+                 </VCard> 
+             </v-col>
+       </v-row>
+ 
+      <v-row class="row row6" max-width="1200px" justify="center" align="center">
+         <v-col class="col col1" cols="8" align="center"> 
+             <figure class="highcharts-figure custom-chart">
+                 <div id="container5" class="custom-chart"></div>
+             </figure>
+         </v-col>
+         <v-col class="col col2" cols="4" align="center"> 
+             <VCard class="custom-card" margin-bottom="5px" max-width="500px" color="green" subtitle="Soil Moisture">
+                 <v-card-item class="custom-card-text">
+                     <span class="text-p3 text-onSecondaryContainer" style="font-size: 35px;">{{ soil }}</span>
+                 </v-card-item>
+                 <v-card-item></v-card-item>
+             </VCard> 
+         </v-col>
+       </v-row>
+    </v-container>
+ </template>
 
 <script setup>
 /** JAVASCRIPT HERE */
@@ -162,6 +152,10 @@ onMounted(()=>{
         Mqtt.subscribe("620155784_pub");
         },
     3000);
+
+    /*setInterval(function(){
+        window.location.reload();
+    },30000);*/
     
 })
 
@@ -531,9 +525,53 @@ const soil = computed(()=>{
 
 <style scoped>
 /** CSS STYLE HERE */
-Figure {
-    border: 2px solid black;
-}
+    Figure {
+        border: 2px solid black;
+    }
 
+    .custom-sheet {
+        background-color: #f5f5f5;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-text-field {
+        background-color: #ffffff;
+        border-radius: 8px;
+    }
+
+    .custom-btn {
+        background-color: #e0e0e0;
+        color: #160303;
+        border-radius: 8px;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-btn:hover {
+        background-color: #1565c0;
+    }
+
+    .custom-card {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .custom-card-text {
+        color: #1976d2;
+    }
+
+    .custom-chip {
+        background-color: #e0e0e0;
+        color: #333333;
+        border-radius: 8px;
+    }
+
+    .custom-chart {
+        background-color: #ffffff;
+        border-radius: 15px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
 </style>
   
